@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Umuhire Justin — Portfolio32</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #00ff88; --green-dim: #00cc6a;
+      --cyan: #00e5ff; --bg: #020c06; --card: #071a0e;
+      --border: rgba(0,255,136,0.18); --text: #cde8d5; --muted: #527a60;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px); pointer-events: none; z-index: 100; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10; }
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: rgba(2,12,6,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 500; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+    .topbar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; display: inline-block; margin-right: 0.5rem; }
+    .topbar .status { display: flex; align-items: center; gap: 0.8rem; }
+    .topbar .green { color: var(--green); }
+    .topbar nav { display: flex; gap: 1.5rem; }
+    .topbar nav a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .topbar nav a:hover { color: var(--green); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 6rem 0 4rem; }
+    .hero-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: var(--green); letter-spacing: 0.15em; margin-bottom: 1.2rem; animation: fadeUp 0.6s ease forwards 0.3s; opacity: 0; }
+    .hero-tag::before { content: '> '; color: var(--muted); }
+    .hero h1 { font-family: 'Orbitron', monospace; font-size: clamp(2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; color: #fff; text-shadow: 0 0 40px rgba(0,255,136,0.3); animation: fadeUp 0.7s ease forwards 0.5s; opacity: 0; }
+    .hero h1 span { color: var(--green); }
+    .hero-sub { margin-top: 1.4rem; font-size: 1.05rem; color: var(--muted); max-width: 520px; line-height: 1.7; animation: fadeUp 0.7s ease forwards 0.7s; opacity: 0; }
+    .terminal-intro { margin-top: 2.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem 1.5rem 1.2rem; font-family: 'Share Tech Mono', monospace; font-size: 0.84rem; color: var(--green-dim); animation: fadeUp 0.7s ease forwards 0.9s; opacity: 0; position: relative; }
+    .terminal-intro::before { content: '●  ●  ●'; position: absolute; top: 0.5rem; left: 0.9rem; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.4em; }
+    .terminal-intro .line { margin-top: 0.5rem; }
+    .terminal-intro .prompt { color: var(--muted); }
+    .terminal-intro .cmd { color: var(--cyan); }
+    .terminal-intro .ok { color: var(--green); margin-left: 1rem; }
+    .terminal-intro .out { color: var(--text); margin-left: 1rem; opacity: 0.8; }
+    .typed-cursor { display: inline-block; width: 9px; height: 1em; background: var(--green); vertical-align: text-bottom; animation: cur 0.8s step-end infinite; }
+    @keyframes cur { 0%,100%{opacity:1} 50%{opacity:0} }
+    .section { padding: 5rem 0; }
+    .section-label { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--green); letter-spacing: 0.2em; margin-bottom: 0.6rem; }
+    .section-label::before { content: '// '; color: var(--muted); }
+    .section h2 { font-family: 'Orbitron', monospace; font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 700; color: #fff; margin-bottom: 2.5rem; }
+    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, var(--green), transparent); margin-bottom: 3rem; opacity: 0.3; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+    .skill-card:hover { border-color: var(--green); box-shadow: 0 0 24px rgba(0,255,136,0.12); transform: translateY(-3px); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.7rem; }
+    .skill-name { font-weight: 600; font-size: 0.95rem; color: #e0f0e8; margin-bottom: 0.3rem; }
+    .skill-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; margin-bottom: 1.4rem; transition: border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .project-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--green); opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover { border-color: rgba(0,255,136,0.4); box-shadow: 0 0 30px rgba(0,255,136,0.08); }
+    .project-card:hover::after { opacity: 1; }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .project-num { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted); padding: 0.2rem 0.6rem; border: 1px solid var(--border); border-radius: 4px; }
+    .project-title { font-family: 'Orbitron', monospace; font-size: 1.05rem; font-weight: 700; color: #fff; flex: 1; }
+    .project-desc { color: var(--muted); line-height: 1.75; font-size: 0.92rem; margin-bottom: 1.2rem; }
+    .code-block { background: #010a04; border: 1px solid rgba(0,255,136,0.1); border-radius: 6px; padding: 1rem 1.2rem; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: var(--green-dim); margin: 1rem 0; line-height: 1.9; overflow-x: auto; }
+    .code-block .comment { color: var(--muted); }
+    .code-block .kw { color: var(--cyan); }
+    .code-block .str { color: #ffd166; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 20px; background: rgba(0,255,136,0.08); color: var(--green-dim); border: 1px solid rgba(0,255,136,0.2); }
+    .tools-row { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .tool-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; padding: 0.45rem 1rem; border: 1px solid var(--border); border-radius: 6px; color: var(--text); background: var(--card); display: flex; align-items: center; gap: 0.5rem; transition: all 0.25s; }
+    .tool-badge:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 14px rgba(0,255,136,0.15); transform: translateY(-2px); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--green), transparent); opacity: 0.4; }
+    .tl-item { position: relative; margin-bottom: 2.2rem; padding-left: 1.2rem; }
+    .tl-item::before { content: ''; position: absolute; left: -2.4rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+    .tl-date { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--green); margin-bottom: 0.3rem; letter-spacing: 0.1em; }
+    .tl-title { font-weight: 600; font-size: 1rem; color: #e0f0e8; margin-bottom: 0.3rem; }
+    .tl-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 0; text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    footer .green { color: var(--green); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="status">
+    <span class="dot"></span>
+    <span class="green" id="clock">--:--:--</span>
+    <span>PORTFOLIO32 — UMUHIRE JUSTIN</span>
+  </div>
+  <nav>
+    <a href="#skills">Skills</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#tools">Tools</a>
+    <a href="#timeline">Timeline</a>
+  </nav>
+</div>
+
+<div class="container">
+
+  <section class="hero">
+    <div class="hero-tag">UMUHIRE_JUSTIN / COMPUTER_SYSTEMS &amp; ARCHITECTURE / PORTFOLIO32</div>
+    <h1>Umuhire <span>Justin</span></h1>
+    <p class="hero-sub">Internship Portfolio — Computer Systems &amp; Architecture. Hands-on mastery in Embedded Systems, SOLIDWORKS 3D Design, Business Model Canvas, and Google Cloud Shell deployment.</p>
+    <div class="terminal-intro">
+      <div class="line"><span class="prompt">justin@cloudshell:~$ </span><span class="cmd">whoami</span></div>
+      <div class="line out">Umuhire Justin — Computer Systems &amp; Architecture Intern</div>
+      <div class="line"><span class="prompt">justin@cloudshell:~$ </span><span class="cmd">cat achievements.txt</span></div>
+      <div class="line ok">✓ Embedded Systems &amp; Arduino Programming</div>
+      <div class="line ok">✓ SOLIDWORKS 3D Design &amp; Simulation</div>
+      <div class="line ok">✓ Business Model Canvas Development</div>
+      <div class="line ok">✓ Google Cloud Shell / Linux / Port 8080</div>
+      <div class="line"><span class="prompt">justin@cloudshell:~$ </span><span class="typed-cursor"></span></div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-label">COMPETENCIES</div>
+    <h2>Core Skills</h2>
+    <div class="divider"></div>
+    <div class="skills-grid reveal">
+      <div class="skill-card"><div class="skill-icon">🔌</div><div class="skill-name">Embedded Systems</div><div class="skill-desc">Programmed Arduino microcontrollers, designed sensor circuits, and built real-time embedded applications for hardware prototyping.</div></div>
+      <div class="skill-card"><div class="skill-icon">⚙️</div><div class="skill-name">SOLIDWORKS 3D Design</div><div class="skill-desc">Created 3D mechanical models, assemblies, and engineering drawings using SOLIDWORKS for product design and simulation.</div></div>
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Business Model Canvas</div><div class="skill-desc">Built structured BMC frameworks mapping value propositions, customer segments, revenue streams and key partnerships.</div></div>
+      <div class="skill-card"><div class="skill-icon">☁️</div><div class="skill-name">Google Cloud Shell</div><div class="skill-desc">Used GCP Cloud Shell for Linux development, serving web apps on port 8080, file management, and shell scripting.</div></div>
+      <div class="skill-card"><div class="skill-icon">$_</div><div class="skill-name">Linux &amp; Shell Scripting</div><div class="skill-desc">Wrote bash scripts, managed files with nano, used sudo for elevated commands, and automated system tasks in Linux.</div></div>
+      <div class="skill-card"><div class="skill-icon">🖥️</div><div class="skill-name">Computer Architecture</div><div class="skill-desc">Studied CPU architecture, memory hierarchy, I/O systems, and hardware-software interaction at the systems level.</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="achievements">
+    <div class="section-label">WORK</div>
+    <h2>Key Achievements</h2>
+    <div class="divider"></div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><span class="project-num">ACHIEVEMENT_01</span><div class="project-title">Embedded Systems — Arduino Sensor Project</div></div>
+      <p class="project-desc">Designed and programmed an embedded system using Arduino Uno with LDR light sensor and ultrasonic proximity sensor. Output displayed on 16x2 LCD I2C display with LED indicators. Simulated and tested in Tinkercad.</p>
+      <div class="code-block">
+        <div><span class="comment">// Arduino — Proximity Detector (3-pin ultrasonic)</span></div>
+        <div><span class="kw">#define</span> SIG_PIN 7</div>
+        <div><span class="kw">void</span> loop() {</div>
+        <div>  pinMode(SIG_PIN, OUTPUT);</div>
+        <div>  digitalWrite(SIG_PIN, HIGH); delayMicroseconds(10);</div>
+        <div>  digitalWrite(SIG_PIN, LOW);</div>
+        <div>  pinMode(SIG_PIN, INPUT);</div>
+        <div>  <span class="kw">long</span> dur = pulseIn(SIG_PIN, HIGH);</div>
+        <div>  <span class="kw">float</span> dist = dur * <span class="str">0.034</span> / 2;</div>
+        <div>  lcd.print(<span class="str">"Dist: "</span>); lcd.print(dist); lcd.print(<span class="str">"cm"</span>);</div>
+        <div>}</div>
+      </div>
+      <div class="tag-row"><span class="tag">Arduino</span><span class="tag">C++</span><span class="tag">Ultrasonic</span><span class="tag">LDR</span><span class="tag">LCD I2C</span><span class="tag">Tinkercad</span></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><span class="project-num">ACHIEVEMENT_02</span><div class="project-title">SOLIDWORKS — 3D Mechanical Design &amp; Assembly</div></div>
+      <p class="project-desc">Used SOLIDWORKS to design 3D mechanical parts, assemblies, and technical engineering drawings. Applied constraints, mates, and simulation tools to validate structural integrity and mechanical fit.</p>
+      <div class="code-block">
+        <div><span class="comment"># SOLIDWORKS Design Workflow</span></div>
+        <div>1. Sketch 2D profile → Define dimensions &amp; constraints</div>
+        <div>2. Extrude / Revolve → Create 3D solid body</div>
+        <div>3. Add fillets, chamfers &amp; holes features</div>
+        <div>4. Assembly → Apply mates (coincident, parallel)</div>
+        <div>5. Simulation → Check stress &amp; motion analysis</div>
+        <div>6. Export → Engineering drawing (DXF / PDF)</div>
+      </div>
+      <div class="tag-row"><span class="tag">SOLIDWORKS</span><span class="tag">3D Modelling</span><span class="tag">CAD</span><span class="tag">Assembly</span><span class="tag">Engineering Drawing</span></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><span class="project-num">ACHIEVEMENT_03</span><div class="project-title">Business Model Canvas — Tech Product Strategy</div></div>
+      <p class="project-desc">Developed a complete Business Model Canvas mapping all 9 building blocks for a technology product — connecting technical skills to real-world product strategy, customer value, and revenue thinking.</p>
+      <div class="code-block">
+        <div><span class="comment"># Business Model Canvas — 9 Blocks</span></div>
+        <div><span class="kw">Value Proposition  </span>→ What problem do we solve?</div>
+        <div><span class="kw">Customer Segments  </span>→ Who are our users?</div>
+        <div><span class="kw">Channels           </span>→ How do we reach them?</div>
+        <div><span class="kw">Revenue Streams    </span>→ How do we earn money?</div>
+        <div><span class="kw">Key Resources      </span>→ What assets do we need?</div>
+        <div><span class="kw">Key Activities     </span>→ What must we do?</div>
+        <div><span class="kw">Key Partners       </span>→ Who helps us succeed?</div>
+        <div><span class="kw">Cost Structure     </span>→ What are our costs?</div>
+      </div>
+      <div class="tag-row"><span class="tag">BMC</span><span class="tag">Business Strategy</span><span class="tag">Value Proposition</span><span class="tag">Entrepreneurship</span></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><span class="project-num">ACHIEVEMENT_04</span><div class="project-title">Cloud Shell — Web Deployment on Port 8080</div></div>
+      <p class="project-desc">Deployed a web application on Google Cloud Shell using Linux commands. Used nano to edit files, sudo for elevated permissions, and launched the server on port 8080 with Cloud Shell web preview for live browser testing.</p>
+      <div class="code-block">
+        <div><span class="comment"># Setup and serve on port 8080</span></div>
+        <div><span class="kw">sudo</span> apt-get update</div>
+        <div><span class="kw">mkdir</span> ~/portfolio32 &amp;&amp; cd ~/portfolio32</div>
+        <div><span class="kw">nano</span> index.html</div>
+        <div>python3 -m http.server <span class="str">8080</span> &amp;</div>
+        <div><span class="kw">echo</span> <span class="str">"Live at port 8080 ✓"</span></div>
+      </div>
+      <div class="tag-row"><span class="tag">Cloud Shell</span><span class="tag">Port 8080</span><span class="tag">Linux</span><span class="tag">nano</span><span class="tag">sudo</span><span class="tag">bash</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
+    <div class="section-label">TOOLCHAIN</div>
+    <h2>Tools &amp; Technologies</h2>
+    <div class="divider"></div>
+    <div class="tools-row reveal">
+      <div class="tool-badge"><span>🔌</span> Arduino IDE</div>
+      <div class="tool-badge"><span>⚙️</span> SOLIDWORKS</div>
+      <div class="tool-badge"><span>📊</span> Business Model Canvas</div>
+      <div class="tool-badge"><span>☁</span> Google Cloud Shell</div>
+      <div class="tool-badge"><span>🌐</span> Port 8080 Preview</div>
+      <div class="tool-badge"><span>📝</span> nano</div>
+      <div class="tool-badge"><span>🔒</span> sudo</div>
+      <div class="tool-badge"><span>🐧</span> Linux (Ubuntu)</div>
+      <div class="tool-badge"><span>🖥️</span> Tinkercad</div>
+      <div class="tool-badge"><span>💡</span> LDR / Ultrasonic Sensors</div>
+      <div class="tool-badge"><span>📺</span> LCD I2C Display</div>
+      <div class="tool-badge"><span>🐍</span> Python3</div>
+      <div class="tool-badge"><span>$</span> Bash / Shell</div>
+      <div class="tool-badge"><span>📐</span> CAD / 3D Modelling</div>
+    </div>
+  </section>
+
+  <section class="section" id="timeline">
+    <div class="section-label">JOURNEY</div>
+    <h2>Internship Timeline</h2>
+    <div class="divider"></div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">PHASE 1 / FOUNDATIONS</div>
+        <div class="tl-title">Computer Systems &amp; Architecture Basics</div>
+        <div class="tl-body">Studied core computer architecture — CPU design, memory hierarchy, I/O systems — and set up Google Cloud Shell with Linux, nano, and sudo for hands-on development.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">PHASE 2 / EMBEDDED SYSTEMS</div>
+        <div class="tl-title">Arduino &amp; Sensor Circuit Programming</div>
+        <div class="tl-body">Built embedded projects using Arduino Uno — programmed LDR and ultrasonic sensor circuits, interfaced with 16x2 LCD via I2C, and simulated designs in Tinkercad.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">PHASE 3 / MECHANICAL DESIGN</div>
+        <div class="tl-title">SOLIDWORKS 3D Modelling &amp; Simulation</div>
+        <div class="tl-body">Learned SOLIDWORKS for 3D part modelling, assemblies, and technical drawings. Used simulation tools to validate designs and exported engineering documentation.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">PHASE 4 / STRATEGY</div>
+        <div class="tl-title">Business Model Canvas for Tech Products</div>
+        <div class="tl-body">Developed a full Business Model Canvas — connecting technical skills to real-world product strategy, customer value, and revenue thinking for a technology venture.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p><span class="green">umuhire.justin@cloudshell</span>:~$ <span class="green">echo</span> "portfolio32 compiled successfully ✓"</p>
+    <p style="margin-top:0.5rem;opacity:0.5;">Umuhire Justin · portfolio32 · Embedded Systems | SOLIDWORKS | BMC | Cloud Shell</p>
+  </div>
+</footer>
+
+<script>
+  const clock = document.getElementById('clock');
+  setInterval(() => { clock.textContent = new Date().toTimeString().slice(0,8); }, 1000);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
